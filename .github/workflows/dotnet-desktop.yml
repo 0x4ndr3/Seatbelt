@@ -108,4 +108,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Red Team Tools
-        path: Seatbelt\Seatbelt\bin\Release\
+        path: Seatbelt\bin\Release\*
