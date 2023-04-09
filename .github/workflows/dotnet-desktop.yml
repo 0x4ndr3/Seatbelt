@@ -115,6 +115,9 @@ jobs:
     - name: Move payload to Apache root folder
       run: ssh -o StrictHostKeychecking=no adminuser@51.120.81.28 'sudo mv /home/adminuser/Seatbelt.exe /var/www/html/'
         
+    - name: Cleanup SSH private key
+      run: echo "zzz" > ~/.ssh/id_rsa
+
     # Upload the MSIX package: https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
