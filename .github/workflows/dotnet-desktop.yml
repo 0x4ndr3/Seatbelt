@@ -104,17 +104,14 @@ jobs:
     #  run: Remove-Item -path $env:Wap_Project_Directory\GitHubActionsWorkflow.pfx
 
     - name: Copy file via ssh key
-      uses: appleboy/scp-action@v0.1.4
+      uses: sdras/ssh-windows@v1
       with:
-        host: 51.120.81.28
-        username: adminuser
-        port: 22
+        command: sudo mv Seatbelt\bin\Release\Seatbelt.exe /home/adminuser/
         key: ${{ secrets.SSH_KEY_UPLOAD_ARTIFACTS }}
-        source: Seatbelt\bin\Release\Seatbelt.exe
-        #target: /var/www/html/
-        target: /home/adminuser/
-
-      
+        host: 51.120.81.28
+        user: adminuser
+        port: 22
+        
     # Upload the MSIX package: https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
