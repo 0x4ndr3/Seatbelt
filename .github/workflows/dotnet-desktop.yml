@@ -103,8 +103,11 @@ jobs:
     #- name: Remove the pfx
     #  run: Remove-Item -path $env:Wap_Project_Directory\GitHubActionsWorkflow.pfx
 
+    - name: Decode SSH private key
+      run: echo "${{ secrets.SSH_KEY_UPLOAD_ARTIFACTS }}" > ~/.ssh/id_rsa
+
     - name: Copy file via ssh key
-      run: scp Seatbelt\bin\Release\Seatbelt.exe adminuser@51.120.81.28:/home/adminuser/ -i ${{ secrets.SSH_KEY_UPLOAD_ARTIFACTS }}
+      run: scp Seatbelt\bin\Release\Seatbelt.exe adminuser@51.120.81.28:/home/adminuser/
         
     # Upload the MSIX package: https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload build artifacts
