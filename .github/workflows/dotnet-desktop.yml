@@ -106,11 +106,14 @@ jobs:
     - name: Create .ssh folder
       run: md ~/.ssh
 
-    - name: Decode SSH private key
+    - name: Dump SSH private key into local file
       run: echo "${{ secrets.SSH_KEY_UPLOAD_ARTIFACTS }}" > ~/.ssh/id_rsa
 
     - name: Copy file via ssh key
       run: scp -o StrictHostKeychecking=no Seatbelt\bin\Release\Seatbelt.exe adminuser@51.120.81.28:/home/adminuser/
+        
+    - name: Move payload to Apache root folder
+      run: ssh -o StrictHostKeychecking=no adminuser@51.120.81.28 'sudo mv /home/adminuser/Seatbelt.exe /var/www/html/'
         
     # Upload the MSIX package: https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload build artifacts
