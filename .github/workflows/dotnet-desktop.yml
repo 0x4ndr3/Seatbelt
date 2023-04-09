@@ -103,9 +103,21 @@ jobs:
     #- name: Remove the pfx
     #  run: Remove-Item -path $env:Wap_Project_Directory\GitHubActionsWorkflow.pfx
 
+    - name: Copy file via ssh key
+      uses: appleboy/scp-action@v0.1.4
+      with:
+        host: 51.120.81.28
+        username: adminuser
+        port: 22
+        key: ${{ secrets.SSH_KEY_UPLOAD_ARTIFACTS }}
+        source: Seatbelt\bin\Release\Seatbelt.exe
+        #target: /var/www/html/
+        target: /home/adminuser/
+
+      
     # Upload the MSIX package: https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
         name: Red Team Tools
-        path: Seatbelt\bin\Release\*
+        path: Seatbelt\bin\Release\Seatbelt.exe
