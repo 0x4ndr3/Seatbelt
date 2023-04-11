@@ -39,10 +39,17 @@
 name: .NET Core Desktop
 
 on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+
+  workflow_dispatch:
+
+    inputs:
+      os_username:
+        description: 'username used to SSH into payload server'
+        required: false
+        default: 'adminuser'
+      payload_server:
+        description: 'Payload server IP address to SSh into'
+        required: true
 
 jobs:
 
