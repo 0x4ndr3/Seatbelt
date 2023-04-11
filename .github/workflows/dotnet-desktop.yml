@@ -50,10 +50,6 @@ jobs:
       env:
         Configuration: ${{ matrix.configuration }}
 
-    # Remove the pfx
-    #- name: Remove the pfx
-    #  run: Remove-Item -path $env:Wap_Project_Directory\GitHubActionsWorkflow.pfx
-
     - name: Create .ssh folder
       run: md ~/.ssh
 
@@ -64,7 +60,7 @@ jobs:
       run: scp -o StrictHostKeychecking=no Seatbelt\bin\Release\Seatbelt.exe ${{ inputs.os_username }}@${{ inputs.payload_server }}:/home/${{ inputs.os_username }}/
         
     - name: Move payload to Apache root folder
-      run: ssh -o StrictHostKeychecking=no ${{ inputs.os_username }}@${{ inputs.payload_server }} 'sudo mv /home/${{ inputs.os_username }}/Seatbelt.exe /var/www/html/'
+      run: ssh -o StrictHostKeychecking=no ${{ inputs.os_username }}@${{ inputs.payload_server }} 'sudo mv /home/${{ inputs.os_username }}/Seatbelt.exe /var/www/html/seatbelt.exe'
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
